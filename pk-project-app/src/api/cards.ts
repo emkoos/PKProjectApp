@@ -9,7 +9,7 @@ export const getCardByUserEmail = (email: string) => {
 }
 
 export const getCardByColumnId = (columnId: string) => {
-    return instance.get(`Cards/Column/${columnId}`).then((response) => response.data);
+    return instance.get(`Cards/Column/${columnId}`).then((response) => response.data?.cards);
 }
 
 export const createCard = (title: string, description: string, userEmail: string, columnId: string, statusId: string, deadlineDate: string, priority: number, estimate: number, attachement: string) => {
