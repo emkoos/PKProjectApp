@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import { getBoardType } from './api/boardTypes';
 import HomePageBoardChoiceComponent from './components/HomePageBoardChoiceComponent/HomePageBoardChoiceComponent';
 import DefaultScrumBoardComponent from './components/DefaultScrumBoard/DefaultScrumBoardComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddNewCardComponent from './components/AddNewCardComponent/AddNewCardComponent';
 
 function App() {
 
@@ -20,6 +20,8 @@ function App() {
         <Route path="/utworz-tablice" />
 
         <Route path="/my-scrum" element={<DefaultScrumBoardComponent/>}/>
+
+        <Route path="/add-new-card" element={<AddNewCardComponent/>}/>
 
         </Routes>
       </BrowserRouter>
