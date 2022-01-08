@@ -8,7 +8,7 @@ export const getColumnByBoardId = (boardId: string) => {
     return instance.get(`Columns/Board/${boardId}`).then((response) => response.data?.columns);
 }
 
-export const createColumn = (title: string, position: number, boardId: string) => {
+export const createColumn = (title: string, position: number, boardId: string | undefined) => {
     const params = { title, position, boardId };
     return instance.post("Columns/create", params);
 }

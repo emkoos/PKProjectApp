@@ -13,6 +13,7 @@ const AddNewCardComponent = () => {
     const navigate = useNavigate();
     const [columnId, setColumnId] = useState<string>();
     const column = useSelector<IState, IColumn>((state) => state.column);
+    const defaultStatusId = "15198a05-2a67-41a0-b4e4-729a07a2c608";
 
     const [initialValues, setInitialValues] = useState<IForm>({
         localisation: 3
@@ -23,16 +24,9 @@ const AddNewCardComponent = () => {
     }, [])
 
     const submitHandler = (values: any, handlers: any) => {
-        console.log(values.title);
-        console.log(values.description);
-        console.log(values.email);
-        console.log(columnId);
-        console.log(values.status);
-        console.log(new Date().toString());
-        console.log(values.priority);
-        console.log(values.estimate);
+        
 
-        createCard(values.title, values.description, values.email, columnId, values.status, "18.11.2021 20:30:03", values.priority, values.estimate, "2")
+        createCard(values.title, values.description, values.email, columnId, defaultStatusId, "2022-01-08T20:10:32.781Z", values.priority, values.estimate, "")
             .then(() => {
                 navigate('/my-scrum');
             }).catch(error => {
@@ -63,10 +57,6 @@ const AddNewCardComponent = () => {
                             <Row className="mt-3">
                                 <Form.Label className="w-100 text-start px-0">Email</Form.Label>
                                 <Form.Control type="textarea" name="email" className="w-100 text-start px-0 ps-3" onChange={handleChange} />
-                            </Row>
-                            <Row className="mt-3">
-                                <Form.Label className="w-100 text-start px-0">Status ID</Form.Label>
-                                <Form.Control type="textarea" name="status" className="w-100 text-start px-0 ps-3" onChange={handleChange} />
                             </Row>
 
                             <Row className="mt-3">

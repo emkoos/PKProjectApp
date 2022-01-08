@@ -1,12 +1,10 @@
-import { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { IColumn } from "../../state";
 import { setColumns } from "../../state/columnCards/action";
-import { IButtonProps } from "./constants";
+import { ICardButtonProps } from "./constants";
 
-const AddNewCardButton= (props: IButtonProps) => {
+const AddNewCardButton= (props: ICardButtonProps) => {
     const dispatch = useDispatch();
 
     const setSelectedColumn = () => {

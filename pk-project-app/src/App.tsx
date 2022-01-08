@@ -6,6 +6,7 @@ import HomePageBoardChoiceComponent from './components/HomePageBoardChoiceCompon
 import DefaultScrumBoardComponent from './components/DefaultScrumBoard/DefaultScrumBoardComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddNewCardComponent from './components/AddNewCardComponent/AddNewCardComponent';
+import AddNewColumnComponent from './components/AddNewColumnComponent/AddNewColumnComponent';
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
         <Route path="/utworz-tablice" />
 
         <Route path="/my-scrum" element={<DefaultScrumBoardComponent/>}/>
+
+        <Route path="/add-new-column" element={<AddNewColumnComponent/>}/>
 
         <Route path="/add-new-card" element={<AddNewCardComponent/>}/>
 
