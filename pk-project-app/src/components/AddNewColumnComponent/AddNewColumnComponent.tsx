@@ -26,7 +26,7 @@ const AddNewColumnComponent = () => {
 
         createColumn(values.title, values.position, boardId)
             .then(() => {
-                navigate('/my-scrum');
+                navigate(`/table-${board.boardTypeId}`);
             }).catch(error => {
                 console.log(error);
             });

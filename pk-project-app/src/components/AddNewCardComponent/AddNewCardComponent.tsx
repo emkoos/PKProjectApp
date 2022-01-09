@@ -4,8 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router"
 import { createCard } from "../../api/cards";
-import { IColumn, IState } from "../../state";
-import { setColumns } from "../../state/columnCards/action";
+import { IBoard, IColumn, IState } from "../../state";
 import { IForm } from "./constants";
 
 
@@ -13,6 +12,7 @@ const AddNewCardComponent = () => {
     const navigate = useNavigate();
     const [columnId, setColumnId] = useState<string>();
     const column = useSelector<IState, IColumn>((state) => state.column);
+    const board = useSelector<IState, IBoard>((state) => state.board);
     const defaultStatusId = "15198a05-2a67-41a0-b4e4-729a07a2c608";
 
     const [initialValues, setInitialValues] = useState<IForm>({
@@ -28,7 +28,7 @@ const AddNewCardComponent = () => {
 
         createCard(values.title, values.description, values.email, columnId, defaultStatusId, "2022-01-08T20:10:32.781Z", values.priority, values.estimate, "")
             .then(() => {
-                navigate('/my-scrum');
+                navigate(`/table-${board.boardTypeId}`);
             }).catch(error => {
                 console.log(error);
             });

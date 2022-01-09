@@ -1,18 +1,14 @@
-import { Formik } from "formik"
-import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router"
+import { Formik } from "formik";
+import { useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { createBoard } from "../../api/boards";
-import { createCard } from "../../api/cards";
 import { createColumn } from "../../api/columns";
-import { IColumn, IState } from "../../state";
 import { setBoard } from "../../state/boardColumns/action";
-import { setColumns } from "../../state/columnCards/action";
 import { Board, IForm } from "./constants";
 
-
-const CreateToDoTableComponent = () => {
+const CreateKanbanTableComponent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const defaultBoardTypeId = "83615ffa-f6b8-4657-a9f5-40fc10921735";
@@ -50,7 +46,7 @@ const CreateToDoTableComponent = () => {
     return (
         <Container>
             <>
-                <h1 className="fs-3 fw-bold d-flex justify-content-center">Dodaj tablicę ToDo</h1>
+                <h1 className="fs-3 fw-bold d-flex justify-content-center">Dodaj tablicę Kanban</h1>
                 <h3 className="fs-6 fw-light m-0 d-flex justify-content-center">Uzupełnij formularz</h3>
                 <Formik
                     onSubmit={submitHandler}
@@ -66,7 +62,7 @@ const CreateToDoTableComponent = () => {
 
                             <Row>
                                 <Col className="my-3 d-flex justify-content-center justify-content-md-center align-items-stretch px-0">
-                                    <Button type="submit" className="w-100 px-0">Dodaj nową tablicę ToDo</Button>
+                                    <Button type="submit" className="w-100 px-0">Dodaj nową tablicę Kanban</Button>
                                 </Col>
                             </Row>
                         </Form>
@@ -77,4 +73,4 @@ const CreateToDoTableComponent = () => {
     )
 }
 
-export default CreateToDoTableComponent;
+export default CreateKanbanTableComponent;
