@@ -5,17 +5,12 @@ import { getColumnByBoardId } from "../../api/columns";
 import { getCardByColumnId } from "../../api/cards";
 import AddNewCardButton from "../Buttons/AddNewCardButton";
 import AddNewColumnButton from "../Buttons/AddNewColumnButton";
+import { IBoard, IState } from "../../state";
+import { useSelector } from "react-redux";
 
 const DefaultScrumBoardComponent = () =>{
-    
-    const scrumBoard: any = {
-        id: "a921cea9-6be0-4de3-b6d7-4f9d67096cf9",
-        name: "Moja Tablica",
-        teamId: "2fec32ab-53a1-467e-a714-b50ea50b49e8",
-        boardTypeId: "21adbda8-c90d-49dd-9778-e9ab9ac86d46"
-    };
-    
-    
+    const scrumBoard = useSelector<IState, IBoard>((state) => state.board);
+
     const [columns1, setColumns1] = useState<Columns[]>();
     const [columnsWithCards, setColumnsWithCards] = useState<Columns[]>();
 

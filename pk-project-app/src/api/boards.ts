@@ -5,12 +5,12 @@ export const getBoardById = (Id: string) => {
 }
 
 export const getBoardByTeamId = (teamId: string) => {
-    return instance.get(`Boards/Team/${teamId}`).then((response) => response.data);
+    return instance.get(`Boards/Team/${teamId}`).then((response) => response.data?.boards);
 }
 
 export const createBoard = (name: string, teamId: string, boardTypeId: string) => {
     const params = { name, teamId, boardTypeId };
-    return instance.post("Boards/create", params);
+    return instance.post("Boards/create", params).then((response) => response.data);
 }
 
 export const editBoard = (Id: string, name: string, teamId: string, boardTypeId: string) => {
