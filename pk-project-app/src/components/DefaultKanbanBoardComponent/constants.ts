@@ -15,11 +15,11 @@ export interface Cards{
     id: string;
     title: string;
     description: string;
-    user_email: string;
+    userEmail: string;
     columnId: string;
     commentId: string;
     stateId: string;
-    deadline: string;
+    deadlineDate: string;
     priority: number;
     estimate: number;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './Style.css';
 import { Columns } from './constants';
 import { Container, Row, Button, Col, Card } from 'react-bootstrap';
 import { getColumnByBoardId } from "../../api/columns";
@@ -35,14 +36,26 @@ const DefaultScrumBoardComponent = () =>{
     return (
         <>
             <Container> 
-                    <h3>Kolumny</h3>
+                    <h3>Tablica Scrum</h3>
                 <Row>
-                    {columnsWithCards?.map((column, index) =>
-                        <Col>
+                    {columnsWithCards?.sort((a, b) => a.position-b.position)
+                    .map((column, index) =>
+                        <Col className="table-column border bg-dark">
                             {column.position} - {column.title}
 
-                            {column.cards?.map((card, key) =>
-                                <p><b>{card.title}</b></p>
+                            {column.cards?.sort((a,b) => a.priority-b.priority)
+                            .map((card, key) =>
+                                <Card className="column-card">
+                                <Card.Body>
+                                    <Card.Title>{card.title}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">{card.deadlineDate}</Card.Subtitle>
+                                    <Card.Text >{card.userEmail}</Card.Text>
+                                    <Card.Text>
+                                        {card.description}
+                                    </Card.Text>
+                                    
+                                </Card.Body>
+                              </Card>
                             )}
 
                             <span className="mt-4 mt-md-0 me-5"><AddNewCardButton route={"/add-new-card"} selectedColumn={column} /></span>
