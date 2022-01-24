@@ -24,12 +24,26 @@ const CardDetailsModal = () => {
       }).catch(err => console.log(err))
     }, [])
 
-    const submitHandler = (values: any, handlers: any) => {
-      console.log(date);
-      let month: any =(date) ? date.getMonth() + 1 : undefined;
-      let dateString: any = (date) ? date.getFullYear().toString() + '-' + month + '-' + date.getDate().toString() : undefined;
+    useEffect(() => {
+      var selectedDate = new Date(selectedCard.deadlineDate); 
+      setDate(selectedDate);
+    }, [])
 
-      // editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, dateString, values.priority, values.estimate, "");
+    const submitHandler = (values: any, handlers: any) => {
+      let month: any =(date) ? date.getMonth() + 1 : undefined;
+      let day: any = (date) ?  date.getDate() : undefined;
+      let hour: any = (date) ? date.getHours() - 1 : undefined;
+      let minutes: any = (date) ? date.getMinutes() : undefined;
+
+      let formattedMonth = `${month < 10 ? `0${month}` : month}`;
+      let formattedDay = `${day < 10 ? `0${day}` :  day}`;
+      let formattedHour = `${hour < 10 ? `0${hour}` : hour}`;
+      let formattedMinutes = `${minutes < 10 ? `0${minutes}` :  minutes}`;
+
+      let dateString: any = (date) ? date.getFullYear().toString() + '-' + formattedMonth + '-' + formattedDay + 'T' + formattedHour + ':' + formattedMinutes + ':00.064Z'  : undefined;
+
+      console.log(dateString);
+      editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, dateString, values.priority, values.estimate, "");
     }
 
     return (
@@ -71,13 +85,12 @@ const CardDetailsModal = () => {
             onChange={handleChange}
           />
         </Form.Group>
-
+        <br />
         <Form.Group>
-          <Form.Label>Termin</Form.Label>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
-              label="DateTimePicker"
+              label="Termin"
               value={date}
               onChange={(date) => {
                 setDate(date);
@@ -115,8 +128,9 @@ const CardDetailsModal = () => {
           </Form.Select>
         </Form.Group>
 
+        <br/>
         <Button variant="primary" type="submit">
-          Save Changes
+          Zapisz zmiany
         </Button>
       </Form>
       )}

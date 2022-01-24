@@ -43,6 +43,8 @@ const DefaultScrumBoardComponent = () =>{
         const values = await Promise.all<Columns>(columnsResult?.map(async (result: any) => {
             const response = await getCardByColumnId(result.id);
 
+            console.log(response);
+
             return {
                 ...result,
                 cards: response
