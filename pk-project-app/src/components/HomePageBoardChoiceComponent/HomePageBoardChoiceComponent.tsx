@@ -4,14 +4,13 @@ import { BoardTypes } from './constants';
 import { Container, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Board } from "../CreateScrumTableComponent/constants";
-import { getBoardByTeamId } from "../../api/boards";
+import { getBoardByTeamId, getMyAllBoards } from "../../api/boards";
 import SelectBoardButton from "../Buttons/SelectBoardButton";
 import LoginComponent from "../AuthComponent/LoginComponent";
 
 const HomePageBoardChoiceComponent = () =>{
     const [boardTypes, setBoardTypes] = useState<BoardTypes[]>();
     const [boards, setBoards] = useState<Board[]>();
-    const defaultTeamId = "2fec32ab-53a1-467e-a714-b50ea50b49e8";
     let boardType = "";
 
     useEffect(() => {
@@ -22,7 +21,7 @@ const HomePageBoardChoiceComponent = () =>{
         const boardTypesResponse = await getBoardTypes();
         setBoardTypes(boardTypesResponse);
         
-        const boardsResponse = await getBoardByTeamId(defaultTeamId);
+        const boardsResponse = await getMyAllBoards();
         setBoards(boardsResponse);
     }
 

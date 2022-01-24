@@ -14,6 +14,13 @@ export const getBoardByTeamId = (teamId: string) => {
     return instance.get(`Boards/Team/${teamId}`, config).then((response) => response.data?.boards);
 }
 
+export const getMyAllBoards = () => {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    }
+    return instance.get(`Boards/Teams/my`, config).then((response) => response.data?.boards);
+}
+
 export const createBoard = (name: string, teamId: string, boardTypeId: string) => {
     const params = { name, teamId, boardTypeId };
     const config = {

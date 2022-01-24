@@ -39,7 +39,7 @@ const CardDetailsModal = () => {
       let formattedDay = `${day < 10 ? `0${day}` :  day}`;
       let formattedHour = `${hour < 10 ? `0${hour}` : hour}`;
       let formattedMinutes = `${minutes < 10 ? `0${minutes}` :  minutes}`;
-
+      console.log(formattedHour);
       let dateString: any = (date) ? date.getFullYear().toString() + '-' + formattedMonth + '-' + formattedDay + 'T' + formattedHour + ':' + formattedMinutes + ':00.064Z'  : undefined;
 
       console.log(dateString);

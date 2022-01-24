@@ -8,3 +8,8 @@ export interface Board{
     teamId: string;
     boardTypeId: string;
 }
+
+export interface Team{
+    id: string;
+    name: string;
+}

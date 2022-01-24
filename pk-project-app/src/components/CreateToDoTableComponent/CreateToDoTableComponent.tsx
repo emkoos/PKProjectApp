@@ -6,34 +6,42 @@ import { useNavigate } from "react-router"
 import { createBoard } from "../../api/boards";
 import { createCard } from "../../api/cards";
 import { createColumn } from "../../api/columns";
+import { getUserTeams } from "../../api/teams";
 import { IColumn, IState } from "../../state";
 import { setBoard } from "../../state/boardColumns/action";
 import { setColumns } from "../../state/columnCards/action";
+import { Team } from "../CreateScrumTableComponent/constants";
 import { Board, IForm } from "./constants";
 
 
 const CreateToDoTableComponent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [teams, setTeams] = useState<Team[] | undefined>();
     const defaultBoardTypeId = "83615ffa-f6b8-4657-a9f5-40fc10921735";
-    const defaultTeamId = "2fec32ab-53a1-467e-a714-b50ea50b49e8";
 
-    const [initialValues, setInitialValues] = useState<IForm>({
-        localisation: 3
+    const [initialValues, setInitialValues] = useState<Team>({
+        id: "",
+        name: ""
     })
 
+    useEffect(() => {
+        getUserTeams().then((response) => {
+          setTeams(response)
+        }).catch(err => console.log(err))
+      }, [])
+
     const submitHandler = (values: any, handlers: any) => {
-        createBoard(values.name, defaultTeamId, defaultBoardTypeId)
+        createBoard(values.name, values.id, defaultBoardTypeId)
             .then(response => {
-                createNewBoard(response, values.name);
+                createNewBoard(response, values.name, values.id);
             }).catch(error => {
                 console.log(error);
             });
     };
 
-    const createNewBoard = async (newBoardId: any, newBoardName: string) => {
+    const createNewBoard = async (newBoardId: any, newBoardName: string, defaultTeamId: string) => {
         await createColumn("ToDo", 1, newBoardId);
-        await createColumn("Done", 3, newBoardId);
 
         const newBoard: Board = {
             id: newBoardId,
@@ -59,10 +67,19 @@ const CreateToDoTableComponent = () => {
                 >
                     {({handleSubmit, handleChange, handleBlur, values, touched, errors}) => (
                         <Form onSubmit={handleSubmit}>
-                            <Row className="mt-3">
+                            <Form.Group className="mt-3">
                                 <Form.Label className="w-100 text-start px-0">Nazwa tablicy</Form.Label>
                                 <Form.Control type="textarea" name="name" className="w-100 text-start px-0 ps-3" onChange={handleChange} />
-                            </Row>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Wybierz zespół</Form.Label>
+                                <Form.Select name="id" className="select-input" onChange={handleChange}>
+                                    {teams?.map((team, index) =>
+                                    <option key={index} value={team.id}>{team.name}</option>
+                                    )}
+                                </Form.Select>
+                            </Form.Group>
 
                             <Row>
                                 <Col className="my-3 d-flex justify-content-center justify-content-md-center align-items-stretch px-0">

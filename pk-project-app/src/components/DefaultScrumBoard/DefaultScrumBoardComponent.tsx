@@ -3,7 +3,7 @@ import './Style.css';
 import { Columns } from './constants';
 import { Container, Row, Button, Col, Card, Modal } from 'react-bootstrap';
 import { getColumnByBoardId } from "../../api/columns";
-import { getCardByColumnId, getCardById, editCard } from "../../api/cards";
+import { getCardByColumnId, getCardById, editCard, deleteCard } from "../../api/cards";
 import AddNewCardButton from "../Buttons/AddNewCardButton";
 import AddNewColumnButton from "../Buttons/AddNewColumnButton";
 import { IBoard, ICard, IState } from "../../state";
@@ -35,6 +35,7 @@ const DefaultScrumBoardComponent = () =>{
 
     useEffect(() => {
         getColumnsAndCards();
+        setClose(false);
     }, [close])
 
     const getColumnsAndCards = async () => {
@@ -42,8 +43,6 @@ const DefaultScrumBoardComponent = () =>{
         setColumns1(columnsResult);
         const values = await Promise.all<Columns>(columnsResult?.map(async (result: any) => {
             const response = await getCardByColumnId(result.id);
-
-            console.log(response);
 
             return {
                 ...result,
@@ -116,6 +115,11 @@ const DefaultScrumBoardComponent = () =>{
         handleClose();
     }
 
+    const deleteThisCard = (card: any) => {
+        setClose(true);
+        deleteCard(card.id);
+    }
+
     return (
             <Container> 
                     <h3>Tablica Scrum</h3>
@@ -124,7 +128,7 @@ const DefaultScrumBoardComponent = () =>{
                     .map((column, index) =>
                         <Col className="table-column border bg-dark" key={index} data-columnid={column.id} onDragEnter={dragEnterHandler} onDragOver={allowDrop} onDrop={(event) => dropHandler(event, column.id)} draggable={false}>
                             {column.title}
-                            <br />
+
                             <span className="mt-4 mt-md-0 me-5"><AddNewCardButton route={"/add-new-card"} selectedColumn={column} /></span>
                             {column.cards?.sort((a,b) => a.priority-b.priority)
                             .map((card, key) =>
@@ -138,7 +142,10 @@ const DefaultScrumBoardComponent = () =>{
                                 </Card.Text>
                                 <Button variant="primary" onClick={() => handleShow(card)}>
                                     Szczegóły
-                                </Button>                            
+                                </Button>
+                                <Button variant="danger" onClick={() => deleteThisCard(card)}>
+                                    Usuń
+                                </Button>                                
                             </Card.Body>
                         </Card>
                             )}
