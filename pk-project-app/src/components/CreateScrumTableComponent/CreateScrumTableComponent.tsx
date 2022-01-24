@@ -32,9 +32,10 @@ const AddNewCardComponent = () => {
     };
 
     const createNewBoard = async (newBoardId: any, newBoardName: string) => {
-        await createColumn("ToDo", 1, newBoardId);
-        await createColumn("InProgress", 2, newBoardId);
-        await createColumn("Done", 3, newBoardId);
+        await createColumn("Story", 1, newBoardId);
+        await createColumn("ToDo", 2, newBoardId);
+        await createColumn("InProgress", 3, newBoardId);
+        await createColumn("Done", 4, newBoardId);
 
         const newBoard: Board = {
             id: newBoardId,

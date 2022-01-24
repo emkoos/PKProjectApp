@@ -121,7 +121,8 @@ const DefaultScrumBoardComponent = () =>{
                     {columnsWithCards?.sort((a, b) => a.position-b.position)
                     .map((column, index) =>
                         <Col className="table-column border bg-dark" key={index} data-columnid={column.id} onDragEnter={dragEnterHandler} onDragOver={allowDrop} onDrop={(event) => dropHandler(event, column.id)} draggable={false}>
-                            {column.position} - {column.title}
+                            {column.title}
+                            <br />
                             <span className="mt-4 mt-md-0 me-5"><AddNewCardButton route={"/add-new-card"} selectedColumn={column} /></span>
                             {column.cards?.sort((a,b) => a.priority-b.priority)
                             .map((card, key) =>

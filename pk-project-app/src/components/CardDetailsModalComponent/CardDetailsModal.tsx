@@ -6,9 +6,16 @@ import { editCard } from "../../api/cards";
 import { getStatus, getStatuses } from "../../api/statuses";
 import { ICard, IState, IUser } from "../../state";
 import { Status } from "./constants";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { DateTimePicker } from "@mui/lab";
+import { TextField } from "@mui/material";
 
 const CardDetailsModal = () => {
     const [statuses, setStatuses] = useState<Status[] | undefined>();
+    const [date, setDate] = useState<Date | null | undefined>();
     const selectedCard = useSelector<IState, ICard>((state) => state.card);
 
     useEffect(() => {
@@ -18,7 +25,11 @@ const CardDetailsModal = () => {
     }, [])
 
     const submitHandler = (values: any, handlers: any) => {
-      editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, values.deadlineDate, values.priority, values.estimate, "");
+      console.log(date);
+      let month: any =(date) ? date.getMonth() + 1 : undefined;
+      let dateString: any = (date) ? date.getFullYear().toString() + '-' + month + '-' + date.getDate().toString() : undefined;
+
+      // editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, dateString, values.priority, values.estimate, "");
     }
 
     return (
@@ -63,13 +74,16 @@ const CardDetailsModal = () => {
 
         <Form.Group>
           <Form.Label>Termin</Form.Label>
-          <Form.Control
-            type="text"
-            name="deadlineDate"
-            placeholder={selectedCard.deadlineDate}
-            defaultValue={selectedCard.deadlineDate}
-            onChange={handleChange}
-          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              label="DateTimePicker"
+              value={date}
+              onChange={(date) => {
+                setDate(date);
+              }}
+            />
+          </LocalizationProvider>
         </Form.Group>
 
         <Form.Group>
