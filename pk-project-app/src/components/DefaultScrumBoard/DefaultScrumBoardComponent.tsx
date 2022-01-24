@@ -20,9 +20,11 @@ const DefaultScrumBoardComponent = () =>{
     const [columns1, setColumns1] = useState<Columns[]>();
     const [columnsWithCards, setColumnsWithCards] = useState<Columns[]>();
     const [show, setShow] = useState(false);
+    const [close, setClose] = useState(false);
 
     const handleShow = async (card: any) => {
         await dispatch(setCard(card));
+        await setClose(false);
         await setShow(true);
     };
     const handleClose = () => setShow(false);
@@ -33,7 +35,7 @@ const DefaultScrumBoardComponent = () =>{
 
     useEffect(() => {
         getColumnsAndCards();
-    }, [])
+    }, [close])
 
     const getColumnsAndCards = async () => {
         const columnsResult = await getColumnByBoardId(scrumBoard.id);
@@ -107,6 +109,11 @@ const DefaultScrumBoardComponent = () =>{
         refNew.current = newcolumnid
     }
 
+    const submitClose = () => {
+        setClose(true);
+        handleClose();
+    }
+
     return (
             <Container> 
                     <h3>Tablica Scrum</h3>
@@ -137,13 +144,13 @@ const DefaultScrumBoardComponent = () =>{
                 </Row>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Login Form</Modal.Title>
+                    <Modal.Title>Szczegóły</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                     <CardDetailsModal />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Close Modal</Button>
+                    <Button variant="secondary" onClick={submitClose}>Zamknij</Button>
                     </Modal.Footer>
                 </Modal>
                 <span className="mt-4 mt-md-0 me-5"><AddNewColumnButton route={"/add-new-column"} selectedBoard={scrumBoard} /></span>
