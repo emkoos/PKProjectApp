@@ -30,7 +30,7 @@ export const createCard = (title: string, description: string, userEmail: string
 }
 
 export const editCard = (Id: string, title: string, description: string, userEmail: string, columnId: string, statusId: string, createdDate: string, updatedStatusDoneDate: string, deadlineDate: string, priority: number, estimate: number, attachement: string) => {
-    const params = { Id, title, description, userEmail, columnId, statusId, deadlineDate, priority, estimate, attachement };
+    const params = { Id, title, description, userEmail, columnId, statusId, createdDate, updatedStatusDoneDate, deadlineDate, priority, estimate, attachement };
     const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }
