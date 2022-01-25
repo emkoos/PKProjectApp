@@ -11,7 +11,7 @@ export const getCommentByCardId = (cardId: string) => {
     const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }
-    return instance.get(`Comments/Card/${cardId}`, config).then((response) => response.data);
+    return instance.get(`Comments/Card/${cardId}`, config).then((response) => response.data?.comments);
 }
 
 export const getCommentByUserEmail = (email: string) => {

@@ -5,17 +5,19 @@ import { useSelector } from "react-redux";
 import { editCard } from "../../api/cards";
 import { getStatus, getStatuses } from "../../api/statuses";
 import { ICard, IState, IUser } from "../../state";
-import { Status } from "./constants";
+import { Comment, Status } from "./constants";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { DateTimePicker } from "@mui/lab";
 import { TextField } from "@mui/material";
+import { getCommentByCardId } from "../../api/comments";
 
 const CardDetailsModal = () => {
     const [statuses, setStatuses] = useState<Status[] | undefined>();
     const [date, setDate] = useState<Date | null | undefined>();
+    const [comments, setComments] = useState<Comment[] | undefined>();
     const selectedCard = useSelector<IState, ICard>((state) => state.card);
 
     useEffect(() => {
@@ -27,6 +29,12 @@ const CardDetailsModal = () => {
     useEffect(() => {
       var selectedDate = new Date(selectedCard.deadlineDate); 
       setDate(selectedDate);
+    }, [])
+
+    useEffect(() => {
+      getCommentByCardId(selectedCard.id).then((response) => {
+        setComments(response);
+      }).catch(err => console.log(err))
     }, [])
 
     const submitHandler = (values: any, handlers: any) => {
@@ -44,6 +52,10 @@ const CardDetailsModal = () => {
 
       console.log(dateString);
       editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, selectedCard.createdDate, selectedCard.updatedStatusDoneDate, dateString, values.priority, values.estimate, "");
+    }
+
+    const commentHandler = (values: any) => {
+      console.log(values.comment);
     }
 
     return (

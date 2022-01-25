@@ -12,6 +12,7 @@ import columnReducer from "../../state/columnCards/reducers";
 import { reduceEachTrailingCommentRange } from "typescript";
 import { setCard } from "../../state/cardInfo/action";
 import CardDetailsModal from "../CardDetailsModalComponent/CardDetailsModal";
+import CardCommentsModal from "../CardCommentsModal/CardCommentsModal";
 
 const DefaultScrumBoardComponent = () =>{
     const scrumBoard = useSelector<IState, IBoard>((state) => state.board);
@@ -19,15 +20,25 @@ const DefaultScrumBoardComponent = () =>{
     const dispatch = useDispatch();
     const [columns1, setColumns1] = useState<Columns[]>();
     const [columnsWithCards, setColumnsWithCards] = useState<Columns[]>();
-    const [show, setShow] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
+    const [showComments, setShowComments] = useState(false);
     const [close, setClose] = useState(false);
 
-    const handleShow = async (card: any) => {
+    const handleShowDetails = async (card: any) => {
         await dispatch(setCard(card));
         await setClose(false);
-        await setShow(true);
+        await setShowDetails(true);
     };
-    const handleClose = () => setShow(false);
+
+    const handleShowComments = async (card: any) => {
+        await dispatch(setCard(card));
+        await setClose(false);
+        await setShowComments(true);
+    };
+
+    const handleCloseDetails = () => setShowDetails(false);
+    const handleCloseComments = () => setShowComments(false);
+
     const refOld = useRef("");
     const refNew = useRef("");
     const refCardId = useRef("");
@@ -109,9 +120,13 @@ const DefaultScrumBoardComponent = () =>{
         refNew.current = newcolumnid
     }
 
-    const submitClose = () => {
+    const submitCloseDetails = () => {
         setClose(true);
-        handleClose();
+        handleCloseDetails();
+    }
+    const submitCloseComments = () => {
+        setClose(true);
+        handleCloseComments();
     }
 
     const deleteThisCard = (card: any) => {
@@ -139,19 +154,22 @@ const DefaultScrumBoardComponent = () =>{
                                 <Card.Text>
                                     {card.description}
                                 </Card.Text>
-                                <Button variant="primary" onClick={() => handleShow(card)}>
+                                <Button variant="primary" onClick={() => handleShowDetails(card)}>
                                     Szczegóły
                                 </Button>
                                 <Button variant="danger" onClick={() => deleteThisCard(card)}>
                                     Usuń
-                                </Button>                                
+                                </Button>  
+                                <Button variant="primary" onClick={() => handleShowComments(card)}>
+                                    Komentarze
+                                </Button>                              
                             </Card.Body>
                         </Card>
                             )}
                         </Col>
                     )}         
                 </Row>
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showDetails} onHide={handleCloseDetails}>
                     <Modal.Header closeButton>
                     <Modal.Title>Szczegóły</Modal.Title>
                     </Modal.Header>
@@ -159,7 +177,19 @@ const DefaultScrumBoardComponent = () =>{
                     <CardDetailsModal />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={submitClose}>Zamknij</Button>
+                    <Button variant="secondary" onClick={submitCloseDetails}>Zamknij</Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={showComments} onHide={handleCloseComments}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Komentarze</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <CardCommentsModal />
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={submitCloseComments}>Zamknij</Button>
                     </Modal.Footer>
                 </Modal>
                 <span className="mt-4 mt-md-0 me-5"><AddNewColumnButton route={"/add-new-column"} selectedBoard={scrumBoard} /></span>

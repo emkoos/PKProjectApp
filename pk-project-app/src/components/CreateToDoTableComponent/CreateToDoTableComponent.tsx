@@ -75,6 +75,7 @@ const CreateToDoTableComponent = () => {
                             <Form.Group>
                                 <Form.Label>Wybierz zespół</Form.Label>
                                 <Form.Select name="id" className="select-input" onChange={handleChange}>
+                                    <option value="">Wybierz</option>
                                     {teams?.map((team, index) =>
                                     <option key={index} value={team.id}>{team.name}</option>
                                     )}
