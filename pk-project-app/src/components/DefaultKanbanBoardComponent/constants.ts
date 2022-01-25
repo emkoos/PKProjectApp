@@ -19,6 +19,8 @@ export interface Cards{
     columnId: string;
     commentId: string;
     stateId: string;
+    createdDate: string;
+    updatedStatusDoneDate: string;
     deadlineDate: string;
     priority: number;
     estimate: number;

@@ -21,6 +21,8 @@ export interface ICard {
     userEmail: string;
     columnId: string;
     statusId: string;
+    createdDate: string;
+    updatedStatusDoneDate: string;
     deadlineDate: string;
     priority: number;
     estimate: number;

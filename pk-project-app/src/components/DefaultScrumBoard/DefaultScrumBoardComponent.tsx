@@ -43,7 +43,7 @@ const DefaultScrumBoardComponent = () =>{
         setColumns1(columnsResult);
         const values = await Promise.all<Columns>(columnsResult?.map(async (result: any) => {
             const response = await getCardByColumnId(result.id);
-
+            console.log(response);
             return {
                 ...result,
                 cards: response
@@ -91,7 +91,7 @@ const DefaultScrumBoardComponent = () =>{
 
                 if(refCardId.current !== "") {
                     let response = await getCardById(refCardId.current);
-                    await editCard(response.id, response.title, response.description, response.userEmail, columnId, response.statusId, response.deadlineDate, response.priority, response.estimate, response.attachment);
+                    await editCard(response.id, response.title, response.description, response.userEmail, columnId, response.statusId, response.createdDate, response.updatedStatusDoneDate, response.deadlineDate, response.priority, response.estimate, response.attachment);
                     refCardId.current = "";
                     refOld.current = "";
                 }

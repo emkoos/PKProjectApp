@@ -43,7 +43,7 @@ const CardDetailsModal = () => {
       let dateString: any = (date) ? date.getFullYear().toString() + '-' + formattedMonth + '-' + formattedDay + 'T' + formattedHour + ':' + formattedMinutes + ':00.064Z'  : undefined;
 
       console.log(dateString);
-      editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, dateString, values.priority, values.estimate, "");
+      editCard(selectedCard.id, values.title, values.description, values.userEmail, selectedCard.columnId, values.statusId, selectedCard.createdDate, selectedCard.updatedStatusDoneDate, dateString, values.priority, values.estimate, "");
     }
 
     return (

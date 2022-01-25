@@ -90,7 +90,7 @@ const DefaultToDoBoardComponent = () =>{
 
                 if(refCardId.current !== "") {
                     let response = await getCardById(refCardId.current);
-                    await editCard(response.id, response.title, response.description, response.userEmail, columnId, response.statusId, response.deadlineDate, response.priority, response.estimate, response.attachment);
+                    await editCard(response.id, response.title, response.description, response.userEmail, columnId, response.statusId, response.createdDate, response.updatedStatusDoneDate, response.deadlineDate, response.priority, response.estimate, response.attachment);
                     refCardId.current = "";
                     refOld.current = "";
                 }

@@ -9,6 +9,8 @@ const initialState: ICard = {
     userEmail: "",
     columnId: "",
     statusId: "",
+    createdDate: "",
+    updatedStatusDoneDate: "",
     deadlineDate: "",
     priority: 0,
     estimate: 0,
