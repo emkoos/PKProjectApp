@@ -16,6 +16,7 @@ import DefaultToDoBoardComponent from './components/DefaultToDoBoardComponent/De
 import DefaultKanbanBoardComponent from './components/DefaultKanbanBoardComponent/DefaultKanbanBoardComponent';
 import CreateKanbanTableComponent from './components/CreateKanbanTableComponent/CreateKanbanTableComponent';
 import AuthComponent from './components/AuthComponent/AuthComponent';
+import RegisterUserComponent from './components/RegisterUserComponent/RegisterUserComponent';
 
 function App() {
 
@@ -37,15 +38,12 @@ function App() {
         <Route path="/table-83615ffa-f6b8-4657-a9f5-40fc10921735" element={<DefaultToDoBoardComponent/>}/>
         <Route path="/table-f6afea8f-17ce-4a31-9227-ba426f7ba78b" element={<DefaultKanbanBoardComponent/>}/>
 
-        {/* <Route path="/table-83615ffa-f6b8-4657-a9f5-40fc10921735" element={<DefaultToDoBoardComponent/>}/>
-        <Route path="/table-f6afea8f-17ce-4a31-9227-ba426f7ba78b" element={<DefaultKanbanBoardComponent/>}/>
-        <Route path="/table-985cc71e-09d1-472b-bc94-2a663b8c4efa" element={<DefaultOwnBoardComponent/>}/> */}
-
         <Route path="/add-new-column" element={<AddNewColumnComponent/>}/>
 
         <Route path="/add-new-card" element={<AddNewCardComponent/>}/>
 
         <Route path="/login" element={<AuthComponent/>}/>
+        <Route path="/register" element={<RegisterUserComponent/>}/>
 
         </Routes>
       </BrowserRouter>

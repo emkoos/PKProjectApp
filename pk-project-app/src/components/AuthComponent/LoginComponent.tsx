@@ -51,9 +51,12 @@ const LoginComponent = () => {
                     <Navbar.Text> 
                         
                         {// @ts-ignore
-                        iToken.token === "" && <Link to='/login'>
+                        iToken.token === "" && <><Link to='/login'>
                             <Button type="submit">Zaloguj się</Button>
-                        </Link>}
+                        </Link>
+                        <Link to='/register'>
+                        <Button type="submit">Rejestracja</Button>
+                        </Link></>}
 
                         {// @ts-ignore
                             iToken.token !== "" && <Container className="d-flex justify-content-center align-items-center">

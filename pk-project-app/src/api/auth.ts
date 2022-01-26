@@ -1,5 +1,10 @@
 import instance from './axiosConfig';
 
+export const registerUser = (username: string, email: string, password: string, firstname: string, lastname: string, photo: string) => {
+    const params = { username, email, password, firstname, lastname, photo };
+    return instance.post("Users/register", params);
+}
+
 export const loginUser = (email: string, password: string) => {
     const params = { email, password };
     return instance.post("Users/login", params).then((response) => response.data);
