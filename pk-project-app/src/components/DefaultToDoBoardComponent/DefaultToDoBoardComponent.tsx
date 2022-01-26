@@ -11,6 +11,7 @@ import { Columns } from "./constants";
 import { setCard } from "../../state/cardInfo/action";
 import CardDetailsModal from "../CardDetailsModalComponent/CardDetailsModal";
 import CardCommentsModal from "../CardCommentsModal/CardCommentsModal";
+import RemoveColumnModalComponent from "../RemoveColumnModalComponent/RemoveColumnModalComponent";
 
 const DefaultToDoBoardComponent = () =>{
     const toDoBoard = useSelector<IState, IBoard>((state) => state.board);
@@ -20,6 +21,8 @@ const DefaultToDoBoardComponent = () =>{
     const [columnsWithCards, setColumnsWithCards] = useState<Columns[]>();
     const [showDetails, setShowDetails] = useState(false);
     const [showComments, setShowComments] = useState(false);    const [close, setClose] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [columnToDelete, setColumnToDelete] = useState<string>('');
 
     const handleShowDetails = async (card: any) => {
         await dispatch(setCard(card));
@@ -132,6 +135,11 @@ const DefaultToDoBoardComponent = () =>{
         deleteCard(card.id);
     }
 
+    const deleteColumnButtonClicked = (columnId: string) => {
+        setModalShow(true);
+        setColumnToDelete(columnId);
+    }
+
     return (
         <>
             <Container> 
@@ -164,10 +172,21 @@ const DefaultToDoBoardComponent = () =>{
                                 </Button>                              
                             </Card.Body>
                         </Card>
-                            )}
+                        )}
+                        <Button variant="danger" onClick={() => deleteColumnButtonClicked(column.id)}>
+                            Usuń kolumnę
+                        </Button> 
                         </Col>
                     )}         
                 </Row>
+
+                <RemoveColumnModalComponent
+                    setClose={setClose}
+                    columnId={columnToDelete}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    />                
+
                 <Modal show={showDetails} onHide={handleCloseDetails}>
                     <Modal.Header closeButton>
                     <Modal.Title>Szczegóły</Modal.Title>

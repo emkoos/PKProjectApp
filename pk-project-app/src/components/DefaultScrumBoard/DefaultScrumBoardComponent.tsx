@@ -13,6 +13,8 @@ import { reduceEachTrailingCommentRange } from "typescript";
 import { setCard } from "../../state/cardInfo/action";
 import CardDetailsModal from "../CardDetailsModalComponent/CardDetailsModal";
 import CardCommentsModal from "../CardCommentsModal/CardCommentsModal";
+import RemoveColumnModalComponent from "../RemoveColumnModalComponent/RemoveColumnModalComponent";
+import { setColumns } from "../../state/columnCards/action";
 
 const DefaultScrumBoardComponent = () =>{
     const scrumBoard = useSelector<IState, IBoard>((state) => state.board);
@@ -23,6 +25,8 @@ const DefaultScrumBoardComponent = () =>{
     const [showDetails, setShowDetails] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [close, setClose] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [columnToDelete, setColumnToDelete] = useState<string>('');
 
     const handleShowDetails = async (card: any) => {
         await dispatch(setCard(card));
@@ -134,6 +138,11 @@ const DefaultScrumBoardComponent = () =>{
         deleteCard(card.id);
     }
 
+    const deleteColumnButtonClicked = (columnId: string) => {
+        setModalShow(true);
+        setColumnToDelete(columnId);
+    }
+
     return (
             <Container> 
                     <h3>Tablica Scrum</h3>
@@ -166,9 +175,20 @@ const DefaultScrumBoardComponent = () =>{
                             </Card.Body>
                         </Card>
                             )}
+                            <Button variant="danger" onClick={() => deleteColumnButtonClicked(column.id)}>
+                                Usuń kolumnę
+                            </Button> 
                         </Col>
                     )}         
                 </Row>
+
+                <RemoveColumnModalComponent
+                    setClose={setClose}
+                    columnId={columnToDelete}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    />
+
                 <Modal show={showDetails} onHide={handleCloseDetails}>
                     <Modal.Header closeButton>
                     <Modal.Title>Szczegóły</Modal.Title>

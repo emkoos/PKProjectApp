@@ -11,6 +11,7 @@ import { Columns } from "./constants";
 import { setCard } from "../../state/cardInfo/action";
 import CardDetailsModal from "../CardDetailsModalComponent/CardDetailsModal";
 import CardCommentsModal from "../CardCommentsModal/CardCommentsModal";
+import RemoveColumnModalComponent from "../RemoveColumnModalComponent/RemoveColumnModalComponent";
 
 const DefaultKanbanBoardComponent = () =>{
     const kanbanBoard = useSelector<IState, IBoard>((state) => state.board);
@@ -21,6 +22,8 @@ const DefaultKanbanBoardComponent = () =>{
     const [showDetails, setShowDetails] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [close, setClose] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [columnToDelete, setColumnToDelete] = useState<string>('');
     
     const handleCloseDetails = () => setShowDetails(false);
     const handleCloseComments = () => setShowComments(false);
@@ -134,6 +137,11 @@ const DefaultKanbanBoardComponent = () =>{
         deleteCard(card.id);
     }
 
+    const deleteColumnButtonClicked = (columnId: string) => {
+        setModalShow(true);
+        setColumnToDelete(columnId);
+    }
+
     return (
         <>
             <Container> 
@@ -166,10 +174,20 @@ const DefaultKanbanBoardComponent = () =>{
                                 </Button>                             
                             </Card.Body>
                         </Card>
-                            )}
+                        )}
+                        <Button variant="danger" onClick={() => deleteColumnButtonClicked(column.id)}>
+                            Usuń kolumnę
+                        </Button> 
                         </Col>
                     )}         
                 </Row>
+
+                <RemoveColumnModalComponent
+                    setClose={setClose}
+                    columnId={columnToDelete}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    />
 
                 <Modal show={showDetails} onHide={handleCloseDetails}>
                     <Modal.Header closeButton>
