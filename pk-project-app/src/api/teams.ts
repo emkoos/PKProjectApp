@@ -13,3 +13,18 @@ export const getUsersByTeamId = (teamId: string) => {
     }
     return instance.get(`Teams/teams/users/${teamId}`, config).then((response) => response.data?.users);
 }
+
+export const createTeam = (name: string) => {
+    const params = { name };
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    }
+    return instance.post("Teams/create", params, config);
+}
+
+export const deleteTeam = (Id: string) => {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    }
+    return instance.delete(`Teams/${Id}`, config);
+}

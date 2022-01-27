@@ -16,3 +16,11 @@ export const infoUser = () => {
     }
     return instance.get("Users/user/logged-in-user", config).then((response) => response.data);
 }
+
+export const addUserToTeam = (teamId: string, userEmail: string) => {
+    const params = { teamId, userEmail };
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+   }
+    return instance.post("Users/user/add-to-team", params, config).then((response) => response.data);
+}

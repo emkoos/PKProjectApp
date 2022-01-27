@@ -10,3 +10,8 @@ export interface User{
     lastname: string,
     photo: string
 }
+
+export interface InitialTeam{
+    id: string;
+    name: string;
+}

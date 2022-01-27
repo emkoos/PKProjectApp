@@ -20,7 +20,8 @@ const DefaultToDoBoardComponent = () =>{
     const [columns1, setColumns1] = useState<Columns[]>();
     const [columnsWithCards, setColumnsWithCards] = useState<Columns[]>();
     const [showDetails, setShowDetails] = useState(false);
-    const [showComments, setShowComments] = useState(false);    const [close, setClose] = useState(false);
+    const [showComments, setShowComments] = useState(false);    
+    const [close, setClose] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [columnToDelete, setColumnToDelete] = useState<string>('');
 
