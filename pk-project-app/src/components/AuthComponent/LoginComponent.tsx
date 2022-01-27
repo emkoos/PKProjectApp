@@ -68,6 +68,9 @@ const LoginComponent = () => {
                                     // @ts-ignore
                                     userInfo.username}</span>
                                 <Button onClick={logOut}>Wyloguj się</Button>
+                                <Link to='/profile'>
+                                    <Button type="submit">Profil</Button>
+                                </Link>
                             </Container>
                         }
                     </Navbar.Text>

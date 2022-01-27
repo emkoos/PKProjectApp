@@ -24,3 +24,11 @@ export const addUserToTeam = (teamId: string, userEmail: string) => {
    }
     return instance.post("Users/user/add-to-team", params, config).then((response) => response.data);
 }
+
+export const editUserInfo = (email: string, username: string, firstname: string, lastname: string, photo: string) => {
+    const params = { email, username, firstname, lastname, photo };
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    }
+    return instance.put("Users/edit-profile", params, config);
+}

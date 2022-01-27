@@ -17,6 +17,7 @@ import DefaultKanbanBoardComponent from './components/DefaultKanbanBoardComponen
 import CreateKanbanTableComponent from './components/CreateKanbanTableComponent/CreateKanbanTableComponent';
 import AuthComponent from './components/AuthComponent/AuthComponent';
 import RegisterUserComponent from './components/RegisterUserComponent/RegisterUserComponent';
+import ProfileUserComponent from './components/AuthComponent/ProfileUserComponent';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
 
         <Route path="/login" element={<AuthComponent/>}/>
         <Route path="/register" element={<RegisterUserComponent/>}/>
+        <Route path="/profile" element={<ProfileUserComponent/>}/>
 
         </Routes>
       </BrowserRouter>
